@@ -1,6 +1,9 @@
 {
   "name": "justdives",
   "version": "0.0.0",
+  "author": "Austin Hardaway <austinhardaway@gmail.com>",
+  "license": "MIT",
+  "description": "Gets yo ass to a dive!",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
