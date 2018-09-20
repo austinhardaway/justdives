@@ -5,32 +5,27 @@ const gMaps = require("@google/maps").createClient({
   key: "AIzaSyD88tA5lTD_IWlRMMrcvqGVYoStzSLI1os",
   Promise: Promise
 });
-/**
- * @TODO: encapsulate API call
- *        use user geolocation instead of hardcdoed value
- *        filter !dives out of posible results
- *        allow user specified distance
- *        show map location of randBar
- *        be better
- *        dont be bad
- */
-/* GET home page. */
+
+/* GET home page. It's possible I have been drinking. just trying to get into the _spirit_ of things */
 router.get("/", function(req, response, next) {
   gMaps
     .places({
       query: "bars",
       language: "en",
-      location: [33.9250414, -83.3735397],
-      radius: 8000,
+      location: [33.9578826, -83.3746134], //Magnolias Bar
+      radius: 8000, //~5miles
       opennow: true
     })
     .asPromise()
     .then(res => {
       barArr = res.json.results;
       randBar = barArr[Math.floor(Math.random() * barArr.length)];
+      console.log(randBar);
       response.render("index", {
         bar: randBar.name,
-        address: randBar.formatted_address
+        address: randBar.formatted_address,
+        lat: randBar.geometry.location.lat,
+        lng: randBar.geometry.location.lng
       });
     })
     .catch(err => {

@@ -1,6 +1,11 @@
 extends layout
 
 block content
+  #map(onload ="initMap();")
   h1= bar
   p= address
-   
+  p#coor #{lat};#{lng}
+
+  script(src="/js/mapDriver.js")
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD88tA5lTD_IWlRMMrcvqGVYoStzSLI1os&callback=initMap")
+
