@@ -2,8 +2,8 @@ extends layout
 
 block content
   #map(onload ="initMap();")
-  h1= bar
-  p= address
+  h1#bar= bar
+  p#address= address
   p#coor #{lat};#{lng}
 
   script(src="/js/mapDriver.js")

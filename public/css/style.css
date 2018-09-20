@@ -1,7 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  height: 500px;
+  height: 90vh;
+  background: #3e4247;
 }
 
 a {
@@ -10,4 +11,9 @@ a {
 
 #map {
   height: 100%;
+}
+
+p,
+h1 {
+  display: none;
 }
