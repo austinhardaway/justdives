@@ -12,32 +12,25 @@ function getBar(lat, lng) {
 }
 
 function initMap() {
-  const coordinates = document.getElementById("coor").innerHTML.split(";");
-  const bar = new google.maps.LatLng(coordinates[0], coordinates[1]);
-  // { lat: 33.9578826, lng: -83.3746134 }
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 33.9578826, lng: -83.3746134 },
-    zoom: 17
-  });
-
   infoWindow = new google.maps.InfoWindow();
   let pos;
   navigator.geolocation.getCurrentPosition(
-    function(position) {
+    position => {
       pos = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: pos,
+        zoom: 17
+      });
+
       getBar(pos.lat, pos.lng)
         .then(bar => {
-          infoWindow.setPosition(bar);
-          infoWindow.setContent(
-            `${document.getElementById("bar").innerHTML}\n${
-              document.getElementById("address").innerHTML
-            }`
-          );
+          console.log(bar);
+          infoWindow.setPosition({ lat: bar.lat, lng: bar.lng });
+          infoWindow.setContent(`${bar.bar}`);
           infoWindow.open(map);
-          map.setCenter(pos);
         })
         .catch(err => console.log("Shit Happened"));
     },

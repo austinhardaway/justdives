@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 const gMaps = require("../src/gMaps.js");
 
-/* Post api listing. */
+/**
+ * Endpoint for the client to request a bar.
+ * Client sends a json object with keys {lat, lng}
+ * that represents their current posiiton
+ *
+ * Returns a json object with all information
+ * needed to find that bar in a drunken
+ * stupor. Important for performance and not
+ * overloading blind drunk folk to not send
+ * to much info
+ */
 router.post("/", function(req, res) {
-  console.log(req.body);
   gMaps(req.body.lat, req.body.lng).then(randBar => {
     res.send({
       bar: randBar.name,
