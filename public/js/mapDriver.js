@@ -1,5 +1,16 @@
 let map, infoWindow;
 
+function getBar(lat, lng) {
+  return axios
+    .post("/api", {
+      lat: lat,
+      lng: lng
+    })
+    .then(res => {
+      return res.data;
+    });
+}
+
 function initMap() {
   const coordinates = document.getElementById("coor").innerHTML.split(";");
   const bar = new google.maps.LatLng(coordinates[0], coordinates[1]);
@@ -17,16 +28,20 @@ function initMap() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-      infoWindow.setPosition(bar);
-      infoWindow.setContent(
-        `${document.getElementById("bar").innerHTML}\n${
-          document.getElementById("address").innerHTML
-        }`
-      );
-      infoWindow.open(map);
-      map.setCenter(pos);
+      getBar(pos.lat, pos.lng)
+        .then(bar => {
+          infoWindow.setPosition(bar);
+          infoWindow.setContent(
+            `${document.getElementById("bar").innerHTML}\n${
+              document.getElementById("address").innerHTML
+            }`
+          );
+          infoWindow.open(map);
+          map.setCenter(pos);
+        })
+        .catch(err => console.log("Shit Happened"));
     },
-    () => {
+    err => {
       console.log("Errors happen");
     }
   );
